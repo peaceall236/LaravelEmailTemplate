@@ -2,6 +2,7 @@
 
 namespace Alliance\LaravelEmailTemplate\Http\Controllers;
 
+use Alliance\LaravelEmailTemplate\Models\Template;
 use Illuminate\Http\Request;
 
 class LaravelEmailTemplateController extends Controller
@@ -31,10 +32,10 @@ class LaravelEmailTemplateController extends Controller
      * Update the specified laravel email template in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Alliance\LaravelEmailTemplate\Models\Template  $template
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Template $template)
     {
         //
     }
@@ -42,10 +43,10 @@ class LaravelEmailTemplateController extends Controller
     /**
      * Remove the specified laravel email template from storage.
      *
-     * @param  int  $id
+     * @param  \Alliance\LaravelEmailTemplate\Models\Template  $template
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Template $template)
     {
         //
     }
