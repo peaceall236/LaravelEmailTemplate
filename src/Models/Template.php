@@ -14,4 +14,11 @@ class Template extends Model
     protected $fillable = [
         "name", "entry_file", "variables"
     ];
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'laravel_email_templates';
 }

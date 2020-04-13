@@ -12,7 +12,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h4>Create Template</h4>\
+                <h4>Create Template</h4>
                 <!-- New Template Form -->
             </div>
             <div class="col-md-6">

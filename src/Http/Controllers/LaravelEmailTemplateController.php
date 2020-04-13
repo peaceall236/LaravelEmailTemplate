@@ -3,10 +3,21 @@
 namespace Alliance\LaravelEmailTemplate\Http\Controllers;
 
 use Alliance\LaravelEmailTemplate\Models\Template;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class LaravelEmailTemplateController extends Controller
 {
+    /**
+     * Initialize controller and add custom middleware
+     */
+    public function __construct() {
+        $middleware = \config('laravelemailtemplate.middleware', []);
+        foreach ($middleware as $key) {
+            $this->middleware($key);
+        }
+    }
+
     /**
      * Display a listing of laravel email template.
      *
@@ -14,7 +25,7 @@ class LaravelEmailTemplateController extends Controller
      */
     public function index()
     {
-        //
+        return view("laravelemailtemplate::index");
     }
 
     /**
