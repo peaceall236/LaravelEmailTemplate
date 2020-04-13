@@ -25,7 +25,9 @@ class LaravelEmailTemplateController extends Controller
      */
     public function index()
     {
-        return view("laravelemailtemplate::index");
+        return view("laravelemailtemplate::index", [
+            'templates' => \config('laravelemailtemplate.templates', [])
+        ]);
     }
 
     /**
