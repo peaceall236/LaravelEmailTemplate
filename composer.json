@@ -1,5 +1,5 @@
 {
-    "version": "1.0.0",
+    "version": "1.0.1",
     "name": "alliance/laravel-email-template",
     "description": "improve email templates, allow to create and maintain them some what semi-dynamically",
     "type": "library",
