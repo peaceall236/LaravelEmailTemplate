@@ -7,24 +7,36 @@ requirements:
 ## Instructions
 #### Step 1: Installation
 Install the package using composer
-`composer require alliance/laravel-email-template`
+```bash
+composer require alliance/laravel-email-template
+```
 
 #### Step 2: Configuration
 Go to your laravel resources folder and create a folder that will contain your email
-`cd resources/views`
-`mkdir -p email-template/template1 email-template/template2`
+```bash
+cd resources/views
+mkdir -p email-template/template1 email-template/template2
+```
 
 Publish package files. Run the following command
-`php artisan vendor:publish`
+```bash
+php artisan vendor:publish
+```
 
 Open the config file and add your configurations
-`vim app/config/laravelemailtemplate.php`
+```bash
+vim app/config/laravelemailtemplate.php
+```
 
 Schedule your laravel app to run the extract command every minute
-`vim app/Console/Kernel.php`
+```bash
+vim app/Console/Kernel.php
+```
 
 Inside the `schedule()` function. Add the following line.
+
 `$schedule->command('laravelemailtemplate:extract')->everyMinute()`
+
 For more details on scheduling. Check [laravel documentation](https://laravel.com/docs/5.5/scheduling)
 
 ## Usage
