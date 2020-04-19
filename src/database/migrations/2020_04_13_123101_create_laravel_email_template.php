@@ -20,6 +20,7 @@ class CreateLaravelEmailTemplate extends Migration
             $table->string('entry_file');
             $table->text('storage_location');
             $table->enum("status", ["pending", "processing", "completed", "failed"]);
+            $table->string('status_description')->nullable();
             $table->timestamps();
         });
     }

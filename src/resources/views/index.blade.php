@@ -30,7 +30,7 @@
                     <div class="alert alert-success">{{ Session::get('status') }}</div>
                 @endif
             </div>
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="panel panel-default">
@@ -43,16 +43,18 @@
                                         <tr>
                                             <th>Template</th>
                                             <th>Status</th>
+                                            <th>Reason</th>
                                             <th>Action</th>
                                         </tr>
                                     @foreach ($uploads as $upload)
                                         <tr>
                                             <td> {{ $upload->name }} </td>
                                             <td> {{ $upload->status }} </td>
+                                            <td> {{ $upload->status_description }} </td>
                                             <td>
                                                 @switch($upload->status)
                                                     @case($retry_status)
-                                                        <a href=" {{ route('laravelemailtemplate.retry', ['id' => $upload->id]) }} " class="btn btn-danger btn-xs">
+                                                        <a href=" {{ route('laravelemailtemplate.retry', ['id' => $upload->id]) }} " class="btn btn-danger btn-xs text-capitalize">
                                                             retry
                                                         </a>
                                                         @break
@@ -83,7 +85,7 @@
                 </table>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="hidden" id="templateEdit">
                     <form method="POST" enctype="multipart/form-data" action="{{ route('laravelemailtemplate.store') }}">
                         {{ csrf_field() }}

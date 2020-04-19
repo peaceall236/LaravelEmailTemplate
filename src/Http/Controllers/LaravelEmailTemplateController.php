@@ -64,6 +64,7 @@ class LaravelEmailTemplateController extends Controller
         $template->name = $templates[$request->templateIndex]["name"];
         $template->template_index = $request->templateIndex;
         $template->entry_file = $request->entryFileName;
+        $template->status_description = "Waiting to be processed";
         $template->storage_location = $path;
         $template->save();
 
@@ -82,6 +83,22 @@ class LaravelEmailTemplateController extends Controller
     public function update(Request $request, Template $template)
     {
         //
+    }
+
+    /**
+     * Retry the specified laravel email template in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Alliance\LaravelEmailTemplate\Models\Template  $template
+     * @return \Illuminate\Http\Response
+     */
+    public function retry(Request $request, Template $template)
+    {
+        $template->status = Template::STATUS_PENDING;
+        $template->status_description = "Waiting to be processed";
+        $template->save();
+
+        return \redirect()->route('laravelemailtemplate.index')->with('status', 'Template added to queue.');
     }
 
     /**

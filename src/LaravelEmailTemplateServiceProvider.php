@@ -24,6 +24,12 @@ class LaravelEmailTemplateServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/resources/views' => resource_path('views/vendor/alliance'),
         ], 'laravelemailtemplate.views');
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                \Alliance\LaravelEmailTemplate\Console\Commands\ExtractEmailTemplateCommand::class,
+            ]);
+        }
     }
 
     /**

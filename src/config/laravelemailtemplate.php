@@ -6,11 +6,16 @@ return [
         [
             "name" => "template1", // template name
             "variables" => ["variable1", "variable2"], // available placeholders to be considered for the template
-            "folder" => "" // path inside resources/views, if not present, laravel default path will be applied
+            "folder" => "email-template/template1", // path inside resources/views, NB: Each Template must have its own folder
+            "entry_file" => "template.php" 
         ], [
             "name" => "template2",
             "variables" => ["variable1", "variable2"],
-            "folder" => ""
+            "folder" => "email-template/template2",
+            "entry_file" => "template.php"
         ]
     ]
 ];
+
+// love is blinded by hope
+// hatred is due to lack of vision and ignorance
