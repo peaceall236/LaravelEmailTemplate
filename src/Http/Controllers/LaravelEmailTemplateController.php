@@ -26,7 +26,10 @@ class LaravelEmailTemplateController extends Controller
     public function index()
     {
         return view("laravelemailtemplate::index", [
-            'templates' => \config('laravelemailtemplate.templates', [])
+            'templates' => \config('laravelemailtemplate.templates', []),
+            "on_queue" => Template::where('status', '<>', Template::STATUS_COMPLETED)->count(),
+            'uploads' => Template::where('status', '<>', Template::STATUS_COMPLETED)->limit(10)->get(),
+            'retry_status' => Template::STATUS_FAILED
         ]);
     }
 
@@ -38,7 +41,35 @@ class LaravelEmailTemplateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $templates = \config('laravelemailtemplate.templates', []);
+        $templates_size = \count($templates);
+        if ($templates_size === 0) {
+            return \redirect()->route('laravelemailtemplate.index');
+        }
+
+        // validate submitted data
+        $request->validate([
+            'entryFileName' => "required",
+            'templateZip' => "required|file|mimes:zip",
+            'templateIndex' => "required|in:" . implode(",", array_keys($templates))
+        ]);
+
+        // upload zip file
+        $filename = time() . "template_" . $request->templateIndex . ".zip";
+        $path = $request->file('templateZip')->storeAs('laravelemailtemplates', $filename);
+
+
+        // create template
+        $template = new Template;
+        $template->name = $templates[$request->templateIndex]["name"];
+        $template->template_index = $request->templateIndex;
+        $template->entry_file = $request->entryFileName;
+        $template->storage_location = $path;
+        $template->save();
+
+        // 
+        return \redirect()->route('laravelemailtemplate.index')->with('status', 'Template upload was added on queue.');
+
     }
 
     /**

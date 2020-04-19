@@ -16,8 +16,10 @@ class CreateLaravelEmailTemplate extends Migration
         Schema::create('laravel_email_templates', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->integer('template_index');
             $table->string('entry_file');
-            $table->text('variables');
+            $table->text('storage_location');
+            $table->enum("status", ["pending", "processing", "completed", "failed"]);
             $table->timestamps();
         });
     }

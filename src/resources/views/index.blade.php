@@ -16,7 +16,59 @@
                     <li class="active">Email Templates</li>
                 </ol>
             </div>
+            <div class="col-md-12 text-center">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul class="list-unstyled">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                @if (Session::has('status'))
+                    <div class="alert alert-success">{{ Session::get('status') }}</div>
+                @endif
+            </div>
             <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">On-queue <span class="badge badge-secondary"> {{ $on_queue }} </span></div>
+                            <div class="panel-body">
+                                @if ($on_queue <= 0)
+                                    None!
+                                @else
+                                    <table class="table">
+                                        <tr>
+                                            <th>Template</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    @foreach ($uploads as $upload)
+                                        <tr>
+                                            <td> {{ $upload->name }} </td>
+                                            <td> {{ $upload->status }} </td>
+                                            <td>
+                                                @switch($upload->status)
+                                                    @case($retry_status)
+                                                        <a href=" {{ route('laravelemailtemplate.retry', ['id' => $upload->id]) }} " class="btn btn-danger btn-xs">
+                                                            retry
+                                                        </a>
+                                                        @break
+                                                    @default
+                                                        
+                                                @endswitch
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </table>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <h2>Templates</h2>
                 <table class="table table-hover">
                     <thead>
@@ -33,7 +85,8 @@
 
             <div class="col-md-6">
                 <div class="hidden" id="templateEdit">
-                    <form method="POST" enctype="multipart/form-data">
+                    <form method="POST" enctype="multipart/form-data" action="{{ route('laravelemailtemplate.store') }}">
+                        {{ csrf_field() }}
                         <div class="form-group">
                             <label for="templateZip" >Selected template: <span id="templateNamePlaceHolder"></span></label>
                             <input type="file" id="templateZip" name="templateZip">
